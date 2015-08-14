@@ -18,15 +18,15 @@ public class Examples {
 
 		// initialize caches
 		AsciiImgCache smallFontCache = AsciiImgCache.create(new Font("Courier",
-				Font.BOLD, 6));
+				Font.BOLD, 20));
 		AsciiImgCache mediumBlackAndWhiteCache = AsciiImgCache.create(new Font(
-				"Courier", Font.BOLD, 10), new char[] {'\\', ' ', '/'});
+				"Courier", Font.BOLD, 10), new char[]{'\\', ' ', '/'});
 		AsciiImgCache largeFontCache = AsciiImgCache.create(new Font("Courier",
 				Font.PLAIN, 16));
 
 		// load image
 		BufferedImage portraitImage = ImageIO.read(new File(
-				"examples/portrait.png"));
+				"examples/s1.jpg"));
 
 		// initialize algorithms
 		BestCharacterFitStrategy squareErrorStrategy = new ColorSquareErrorFitStrategy();
@@ -35,8 +35,10 @@ public class Examples {
 		// initialize converters
 		AsciiToImageConverter imageConverter = new AsciiToImageConverter(
 				smallFontCache, squareErrorStrategy);
-		AsciiToStringConverter stringConverter = new AsciiToStringConverter(
-				largeFontCache, ssimStrategy);
+//		AsciiToStringConverter stringConverter = new AsciiToStringConverter(
+//				largeFontCache, ssimStrategy);
+ 		AsciiToStringConverter stringConverter = new AsciiToStringConverter(
+				smallFontCache, ssimStrategy);
 
 		// small font images, square error
 		imageConverter.setCharacterCache(smallFontCache);
@@ -73,7 +75,6 @@ public class Examples {
 		imageConverter.setCharacterFitStrategy(ssimStrategy);
 		ImageIO.write(imageConverter.convertImage(portraitImage), "png",
 				new File("examples/portrait_large_ssim.png"));
-
 		// string converter, output to console
 		System.out.println(stringConverter.convertImage(portraitImage));
 
